@@ -1,0 +1,53 @@
+
+
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Register"
+      />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:layout_marginTop="16dp"
+        android:onClick="goToLogin"/>
+
+    <Button
+        android:id="@+id/travelTipsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Find cat from name"
+        android:layout_marginTop="16dp"
+        android:onClick="goToCatInfo"/>
+
+    <Button
+        android:id="@+id/chatButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Chat"
+        android:layout_marginTop="16dp"
+        android:onClick="goToChat"/>
+
+    <Button
+        android:id="@+id/userProfileDetailsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="User Profile"
+        android:layout_marginTop="16dp"
+        android:onClick="goToUserProfiles"/>
+
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

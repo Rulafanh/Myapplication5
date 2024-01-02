@@ -1,0 +1,20 @@
+<!-- default_profile_image.xml -->
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Background Circle -->
+    <item>
+        <shape
+            android:shape="oval">
+            <solid android:color="#CCCCCC"/> <!-- Use your desired background color -->
+        </shape>
+    </item>
+
+    <!-- Image Icon -->
+    <item
+        android:drawable="@drawable/ic_launcher_background"
+        android:width="72dp"
+        android:height="72dp"
+        android:gravity="center"/>
+
+</layer-list>
