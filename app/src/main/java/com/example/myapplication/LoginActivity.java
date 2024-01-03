@@ -21,6 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     // SharedPreferences keys
     private static final String PREF_NAME = "login_prefs";
     private static final String KEY_USERNAME = "username";
+    private static final String KEY_PASSWORD = "password";
     private static final String KEY_REMEMBER_ME = "remember_me";
 
     private SharedPreferences sharedPreferences;
@@ -41,9 +42,11 @@ public class LoginActivity extends AppCompatActivity {
         // Check if "remember me" option was selected in the previous session
         boolean rememberMe = sharedPreferences.getBoolean(KEY_REMEMBER_ME, false);
         if (rememberMe) {
-            // If selected, populate the username field
+            // If selected, populate the username and password fields
             String savedUsername = sharedPreferences.getString(KEY_USERNAME, "");
+            String savedPassword = sharedPreferences.getString(KEY_PASSWORD, ""); // Corrected key
             usernameEditText.setText(savedUsername);
+            passwordEditText.setText(savedPassword);
             rememberMeCheckBox.setChecked(true);
         }
     }
@@ -58,8 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         // Save login status locally based on "remember me" option using SharedPreferences
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(KEY_USERNAME, username);
-
-        // If "remember me" is checked, save the status
+        editor.putString(KEY_PASSWORD, password);
         editor.putBoolean(KEY_REMEMBER_ME, rememberMe);
 
         // Apply the changes

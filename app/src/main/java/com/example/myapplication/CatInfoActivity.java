@@ -1,9 +1,5 @@
 package com.example.myapplication;
 
-import static android.app.ProgressDialog.show;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,14 +10,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -44,7 +42,7 @@ public class CatInfoActivity extends AppCompatActivity {
         edtName = findViewById(R.id.edtName);
         txtResult = findViewById(R.id.txtResult);
         queue = Volley.newRequestQueue(this);
-        final String apiKey = "live_PIhmVkkiKv8s7HBElBwXGa77az7HtdNFBHCrAirxqmudeUs3wtwEmNV8U2FMKjiL";
+       // final String apiKey = "live_PIhmVkkiKv8s7HBElBwXGa77az7HtdNFBHCrAirxqmudeUs3wtwEmNV8U2FMKjiL";
     }
 
     public void btnShow_Click(View view) {
@@ -55,31 +53,26 @@ public class CatInfoActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(Name)) {
             txtResult.setText("Enter Desired info");
         } else {
-            String url = "https://api.api-ninjas.com/v1/cats" + Name;
+            String url = "https://api.thecatapi.com/v1/images/search"
+                    +"?breed_ids="+ Name;
             Log.d("API_REQUEST", "URL: " + url); // Log the URL
 
             StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            Log.d("API_RESPONSE", "Response: " + response); // Log the API response
+                            Log.d("API_RESPONSE", "Response: " + response);
 
-                            //txtResult.setText(response);
                             String result = "";
                             try {
-                                JSONObject jsonObject = new JSONObject(response);
-                                JSONObject dataObj = jsonObject.getJSONObject("data");
+                                JSONArray jsonArray = new JSONArray(response);
+                                JSONObject dataObj = jsonArray.getJSONObject(0);
 
-                                double bmi = dataObj.getDouble("bmi");
-                                String health = dataObj.getString("health");
-                                String healthRange = dataObj.getString("healthy_bmi_range");
+                                double width = dataObj.getDouble("width");
+                                double height = dataObj.getDouble("height");
 
-                                // Log the parsed values
-                                Log.d("API_PARSING", "BMI: " + bmi + ", Health: " + health + ", Range: " + healthRange);
-
-                                result = "BMI = " + bmi;
-                                result += "\nHealth: " + health;
-                                result += "\nHealth BMI range: " + healthRange;
+                                result = "Width = " + width;
+                                result += "\nHeight: " + height;
 
                                 txtResult.setText(result);
 
@@ -91,8 +84,6 @@ public class CatInfoActivity extends AppCompatActivity {
                                 Log.e("API_PARSING", "Error parsing JSON: " + exception.getMessage());
                                 exception.printStackTrace();
                             }
-
-
                         }
                     }, new Response.ErrorListener() {
                 @Override
@@ -116,4 +107,5 @@ public class CatInfoActivity extends AppCompatActivity {
             queue.add(stringRequest);
         }
     }
+
 }
